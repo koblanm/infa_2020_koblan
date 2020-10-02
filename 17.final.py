@@ -9,15 +9,15 @@ BLACK = (0, 0, 0)
 SKIN = (221, 233, 175)
 RED = (200, 55, 55)
 GREEN = (136, 170, 0)
-#фон
+#background
 screen = pygame.display.set_mode((465, 645))
 rect(screen, (0, 34, 43), (0, 0, 465, 323))
 rect(screen, (34, 43, 0), (0, 323, 465, 322))
 
-#луна
+#moon
 circle(screen, (242, 242, 242), (275, 150), 60)
 
-#облака
+#clouds
 col_cloud_light = (102, 102, 102)
 col_cloud_dark = (51, 51, 51)
 
@@ -31,31 +31,35 @@ ellipse(screen, col_cloud_dark, (100, 50, 430, 70))
 ellipse(screen, col_cloud_dark, (-150, 120, 280, 70))
 ellipse(screen, col_cloud_dark, (120, 230, 430, 70))
 
-#тарелка
-n = 1
+#UFO
+scale = 1
 x = 5
 y = 195
-##луч
+
+n = scale
+##light
 size = (160*n, 140*n)
 luch = pygame.Surface(size)
 luch.set_colorkey(BLACK)
 luch.set_alpha(50)
 
-polygon(luch, WHITE, [(0, 140*n), (80*n, 0), (160*n, 140*n), (0, 140*n)])
-screen.blit(luch, (x + 5*n,y + 35*n))
-##аппарат
-ellipse(screen, (153, 153, 153), (x, y, 180*n, 70*n))
-ellipse(screen, (204, 204, 204), (x + 25*n, y - 5*n, 130*n, 50*n))
+polygon(luch, WHITE, [(0, int(140*n)),(int(80*n), 0), (int(160*n), int(140*n)), (0, int(140*n))])
+screen.blit(luch, (int(x + 5*n),int(y + 35*n)))
+##rocket
+ellipse(screen, (153, 153, 153), (x, y, int(180*n), int(70*n)))
+ellipse(screen, (204, 204, 204), (x + int(25*n), y - int(5*n), int(130*n), int(50*n)))
 ###windows
-ellipse(screen, WHITE, (x + 10*n, y + 29*n, 22*n, 12*n))
-ellipse(screen, WHITE, (x + 34*n, y + 42*n, 22*n, 12*n))
-ellipse(screen, WHITE, (x + 62*n, y + 48*n, 22*n, 12*n))
-ellipse(screen, WHITE, (x + 96*n, y + 48*n, 22*n, 12*n))
-ellipse(screen, WHITE, (x + 124*n, y + 42*n, 22*n, 12*n))
-ellipse(screen, WHITE, (x + 148*n, y + 29*n, 22*n, 12*n))
+ellipse(screen, WHITE, (x + int(10*n), y + int(29*n), int(22*n), int(12*n)))
+ellipse(screen, WHITE, (x + int(34*n), y + int(42*n), int(22*n), int(12*n)))
+ellipse(screen, WHITE, (x + int(62*n), y + int(48*n), int(22*n), int(12*n)))
+ellipse(screen, WHITE, (x + int(96*n), y + int(48*n), int(22*n), int(12*n)))
+ellipse(screen, WHITE, (x + int(124*n), y + int(42*n), int(22*n), int(12*n)))
+ellipse(screen, WHITE, (x + int(148*n), y + int(29*n), int(22*n), int(12*n)))
 
-#Alien
-def alien(x, y, n, k):
+#Aliens
+def alien(x, y, scale, mirror):
+    n = scale
+    k = mirror
     A = int(80*n)
     D = int(A / 4)
     R = int(D/2)
@@ -117,15 +121,12 @@ def alien(x, y, n, k):
     #apple
     ##body
     circle(screen, RED, (X3 + k*int(D*4.9), Y3 + int(D*1.1)), int(1.4*D))
-    ##green
+    ##leaf
     line(screen, BLACK, (X3 + k*int(D*4.9), Y3 + int(D*(-0.2))), (X3 + k*int(D*5.2), Y3 + int(D*(-0.8))))
     line(screen, BLACK, (X3 + k*int(D*5.2), Y3 + int(D*(-0.8))), (X3 + k*int(D*5.8), Y3 + int(D*(-1.4))))
     polygon(screen, GREEN, [(X3 + k*int(D*5.2), Y3 + int(D*(-0.8))), (X3 + k*int(D*4.9), Y3 + int(D*(-1.1))), (X3 + k*int(D*4.9),Y3 + int(D*(-1.4))), (X3 + k*int(D*5.2), Y3 + int(D*(-0.8)))])
     
 alien(250, 300, 0.7, 1)
-##head
-
-
 
 pygame.display.update()
 clock = pygame.time.Clock()
