@@ -14,58 +14,59 @@ SKIN = (221, 233, 175)
 RED = (200, 55, 55)
 GREEN = (136, 170, 0)
 
-#фон
+#background
 screen = pygame.display.set_mode((465, 645))
 rect(screen, (0, 34, 43), (0, 0, 465, 323))
 rect(screen, (34, 43, 0), (0, 323, 465, 322))
 
-#луна
+#moon
 circle(screen, col_moon, (275, 150), 60)
 
-#облака
-def oblako(Cx, Cy, color):
-    def sloy(n):
+#clouds
+def draw_cloud(Cx, Cy, color):
+    #blur
+    def layer(n):
         a = 200*n
         b = 30*n
         size = (int(2*a), int(2*b))
         cloud = pygame.Surface(size)
         cloud.set_colorkey(BLACK)
-        cloud.set_alpha(200/SLOYEV)
+        cloud.set_alpha(200/LAYERS)
         ellipse(cloud, color, (0, 0, int(2*a), int(2*b)))
 
         screen.blit(cloud, (Cx-int(a), Cy-int(b)))
-    SLOYEV = 100
+    LAYERS = 100
     i = 1
     while i >= 0:
-        sloy(i)
-        i -= 1/SLOYEV
-oblako(515, 15, col_cloud_light)
-oblako(15, 55, col_cloud_light)
-oblako(415, 130, col_cloud_light)
-oblako(115, 200, col_cloud_light)
-oblako(385, 235, col_cloud_light)
-#dopolnenie
-oblako(300, 50, col_cloud_light)
-oblako(50, 170, col_cloud_light)
-oblako(270, 240, col_cloud_light)
-oblako(275, 150, col_cloud_light)
+        layer(i)
+        i -= 1/LAYERS
+draw_cloud(515, 15, col_cloud_light)
+draw_cloud(15, 55, col_cloud_light)
+draw_cloud(415, 130, col_cloud_light)
+draw_cloud(115, 200, col_cloud_light)
+draw_cloud(385, 235, col_cloud_light)
+draw_cloud(300, 50, col_cloud_light)
+draw_cloud(50, 170, col_cloud_light)
+draw_cloud(270, 240, col_cloud_light)
+draw_cloud(275, 150, col_cloud_light)
 
-oblako(315, 85, col_cloud_dark)
-oblako(-20, 155, col_cloud_dark)
-oblako(335, 205, col_cloud_dark)
+draw_cloud(315, 85, col_cloud_dark)
+draw_cloud(-20, 155, col_cloud_dark)
+draw_cloud(335, 205, col_cloud_dark)
 
 
-def tarelka(x, y, n):
-    #тарелка
-    ##луч
+def UFO(x, y, scale):
+    n = scale
+    #UFO
+    ##light
     size = (int(160*n), int(140*n))
-    luch = pygame.Surface(size)
-    luch.set_colorkey((0, 0, 0))
-    luch.set_alpha(50)
+    light = pygame.Surface(size)
+    light.set_colorkey(BLACK)
+    light.set_alpha(50)
 
-    polygon(luch, WHITE, [(0, int(140*n)),(int(80*n), 0), (int(160*n), int(140*n)), (0, int(140*n))])
-    screen.blit(luch, (int(x + 5*n),int(y + 35*n)))
-    ##аппарат
+    polygon(light, WHITE, [(0, int(140*n)),(int(80*n), 0), (int(160*n), int(140*n)), (0, int(140*n))])
+    screen.blit(light, (int(x + 5*n),int(y + 35*n)))
+    ##rocket
     ellipse(screen, (153, 153, 153), (x, y, int(180*n), int(70*n)))
     ellipse(screen, (204, 204, 204), (x + int(25*n), y - int(5*n), int(130*n), int(50*n)))
     ###windows
@@ -76,12 +77,14 @@ def tarelka(x, y, n):
     ellipse(screen, WHITE, (x + int(124*n), y + int(42*n), int(22*n), int(12*n)))
     ellipse(screen, WHITE, (x + int(148*n), y + int(29*n), int(22*n), int(12*n)))
 
-tarelka(5, 195, 1)
-tarelka(340, 215, 0.7)
-tarelka(180, 290, 0.3)
+UFO(5, 195, 1)
+UFO(340, 215, 0.7)
+UFO(180, 290, 0.3)
 
 #aliens
-def alien(x, y, n, k):
+def alien(x, y, scale, mirror):
+    n = scale
+    k = mirror
     A = int(80*n)
     D = int(A / 4)
     R = int(D/2)
@@ -98,7 +101,6 @@ def alien(x, y, n, k):
     circle(screen, SKIN, (X1, Y1), D)
     circle(screen, SKIN, (X2, Y2), D)
     circle(screen, SKIN, (X3, Y3), D)
-    #circle(screen, (34, 43, 0), (X3, Y3), int(D*1.05), 1)
     
     rect(screen, SKIN, (x, y, A*k, D))
     polygon(screen, SKIN, [(X1, Y1), (X3, Y3), (X3 - int(D*k*math.sin(math.pi / 3)), Y3 + R), (X1 - int(D*k*math.sin(math.pi / 3)), Y1 + R), (X1, Y1)])
@@ -143,7 +145,7 @@ def alien(x, y, n, k):
     #apple
     ##body
     circle(screen, RED, (X3 + k*int(D*4.9), Y3 + int(D*1.1)), int(1.4*D))
-    ##green
+    ##leaf
     line(screen, BLACK, (X3 + k*int(D*4.9), Y3 + int(D*(-0.2))), (X3 + k*int(D*5.2), Y3 + int(D*(-0.8))))
     line(screen, BLACK, (X3 + k*int(D*5.2), Y3 + int(D*(-0.8))), (X3 + k*int(D*5.8), Y3 + int(D*(-1.4))))
     polygon(screen, GREEN, [(X3 + k*int(D*5.2), Y3 + int(D*(-0.8))), (X3 + k*int(D*4.9), Y3 + int(D*(-1.1))), (X3 + k*int(D*4.9),Y3 + int(D*(-1.4))), (X3 + k*int(D*5.2), Y3 + int(D*(-0.8)))])
