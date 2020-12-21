@@ -2,8 +2,6 @@ from random import randint
 import turtle as tr
 #system variables
 Number_of_particles = 5
-Force_constant1 = 5 * 10**9
-Force_constant2 = 5 * 10**9 
 dt = 0.05
 t = 0
 TimeMAX = 100
@@ -18,8 +16,6 @@ ay = 0
 
 #Shorter names of var:
 N = Number_of_particles
-G1 = Force_constant1
-G2 = Force_constant2
 BR = Border_right
 BL = Border_left
 BU = Border_up
@@ -82,33 +78,11 @@ while t < TimeMAX:
         if PoY[n] < BD:
             SpY[n] *= -1
 
-        #Forces
-        for i in range(N):
-            if i == n:
-                x += 0
-            else:
-                X = PoX[n] - PoX[i]
-                Y = PoY[n] - PoY[i]
-                R = (X**2 + Y**2)**(0.5)
-                ax = X * (12*G1/(R**14) - 6*G2/(R**8))
-                ay = Y * (12*G1/(R**14) - 6*G2/(R**8))
-                SpX[n] -= ax
-                SpY[n] -= ay
-                
-        #Speed borders
-        if SpX[n] > Vmax :
-            SpX[n] = Vmax
-        if SpY[n] > Vmax:
-            SpY[n] = Vmax
-        if SpX[n] < -Vmax:
-            SpX[n] = -Vmax
-        if SpY[n] < -Vmax:
-            SpY[n] = -Vmax
+       
 
         n += 1
-        ax = 0
-        ay = 0
         
     n = 0
     t += dt 
+
 
