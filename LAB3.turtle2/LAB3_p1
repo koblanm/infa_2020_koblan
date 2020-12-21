@@ -1,0 +1,11 @@
+import turtle as t
+from random import *
+t.color('red')
+t.speed(100)
+t.shape('turtle')
+
+for i in range(50):
+    move = randint(0, 30)
+    rotation = randint(-180, 180)
+    t.forward(move)
+    t.right(rotation)
