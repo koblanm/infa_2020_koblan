@@ -1,0 +1,35 @@
+import turtle as tr
+tr.shape('turtle')
+tr.speed(1000)
+N = 100
+def duga(R):
+    for i in range(N):
+        tr.forward(R / (2*N))
+        tr.right(180 / N)
+def krug(R , x):
+    tr.pendown()
+    tr.color(x)
+    tr.begin_fill()
+    for i in range(N):
+        tr.forward(R / (2*N))
+        tr.left(360 / N)
+    tr.end_fill()
+    tr.penup()
+krug(1000 , 'yellow')
+tr.goto(-30, 90)
+krug(100 , 'blue')
+tr.goto(30, 90)
+krug(100 , 'blue')
+tr.goto(0 , 80)
+tr.right(90)
+tr.pendown()
+tr.color('black')
+tr.width(6)
+tr.forward(10)
+tr.penup()
+tr.goto(32, 50)
+tr.pendown()
+tr.color('red')
+duga(200)
+tr.penup()
+tr.goto(400, 400)
